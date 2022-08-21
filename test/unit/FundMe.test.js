@@ -12,7 +12,7 @@ const { developmentChains } = require("../../helper-hardhat-config")
           beforeEach(async function() {
               //const accounts = await ethers.getSigners()
               //const accountZero = accounts[0]
-              deployer = await getNamedAccounts().deployer
+              deployer = (await getNamedAccounts()).deployer
               await deployments.fixture(["all"])
               fundMe = await ethers.getContract("FundMe", deployer)
               mockV3Aggregator = await ethers.getContract(
