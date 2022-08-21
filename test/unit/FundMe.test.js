@@ -43,7 +43,7 @@ const { developmentChains } = require("../../helper-hardhat-config")
               })
               it("Adds funder to array of getFunder", async function() {
                   await fundMe.fund({ value: sendValue })
-                  const funder = await fundMe.getFunder[0]
+                  const funder = await fundMe.getFunder(0)
                   assert.equal(funder, deployer)
               })
           })
@@ -96,6 +96,12 @@ const { developmentChains } = require("../../helper-hardhat-config")
                   const transactionReciept = await transactionResponse.wait(1)
                   const { gasUsed, effectiveGasPrice } = transactionReciept
                   const gasCost = gasUsed.mul(effectiveGasPrice)
+                  const endingFundMeBalance = await ethers.provider.getBalance(
+                      fundMe.address
+                  )
+                  const endingDeployerBalance = await ethers.provider.getBalance(
+                      deployer
+                  )
 
                   assert.equal(endingFundMeBalance, 0)
                   assert.equal(
@@ -144,6 +150,12 @@ const { developmentChains } = require("../../helper-hardhat-config")
                   const transactionReciept = await transactionResponse.wait(1)
                   const { gasUsed, effectiveGasPrice } = transactionReciept
                   const gasCost = gasUsed.mul(effectiveGasPrice)
+                  const endingFundMeBalance = await ethers.provider.getBalance(
+                      fundMe.address
+                  )
+                  const endingDeployerBalance = await ethers.provider.getBalance(
+                      deployer
+                  )
 
                   assert.equal(endingFundMeBalance, 0)
                   assert.equal(
